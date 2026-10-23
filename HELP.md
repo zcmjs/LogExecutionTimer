@@ -5,6 +5,7 @@
 For further reference, please consider the following sections:
 
 Important links:
+
 http://localhost:8080/actuator/prometheus --> spraqwdza wszytskie dane eksportowane przez prometheus
 
 http://localhost:9090/targets ---> pokazuje wszyskie scrape pools
