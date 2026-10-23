@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: LogExecutionTimer
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    endpoint:
+      prometheus:
+        enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    enable:
+      http.server.requests: true
