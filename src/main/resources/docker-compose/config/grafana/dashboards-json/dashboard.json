@@ -18,23 +18,52 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "c30219df-bd25-49a2-85a2-5ebd39e436df"
+        "uid": "f053876a-4381-43ee-8284-46cae4956fc9"
       },
-      "description": "",
+      "description": "Method Calls per Minute",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
-          "noValue": "EMPTY TANK",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -57,29 +86,139 @@
         "x": 0,
         "y": 0
       },
-      "id": 2,
+      "id": 3,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "textMode": "auto"
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "10.1.1",
-      "title": "Testov 2",
-      "type": "stat"
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "f053876a-4381-43ee-8284-46cae4956fc9"
+          },
+          "editorMode": "code",
+          "expr": "rate(method_execution_time_seconds_count[1m])",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Method Throughput (req/min)",
+      "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "c30219df-bd25-49a2-85a2-5ebd39e436df"
+        "uid": "f053876a-4381-43ee-8284-46cae4956fc9"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "series",
+            "axisLabel": "Time Execution",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "NO DATA",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "f053876a-4381-43ee-8284-46cae4956fc9"
+          },
+          "editorMode": "code",
+          "expr": "rate(method_execution_time_seconds_sum[1m]) / rate(method_execution_time_seconds_count[1m])",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Average Time Execution",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "f053876a-4381-43ee-8284-46cae4956fc9"
       },
       "fieldConfig": {
         "defaults": {
@@ -138,7 +277,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 17
       },
       "id": 1,
       "options": {
@@ -159,17 +298,19 @@
             "type": "prometheus",
             "uid": "c30219df-bd25-49a2-85a2-5ebd39e436df"
           },
-          "expr": "",
+          "editorMode": "code",
+          "expr": "max by (method) (method_execution_time_seconds_max{method=~\"$method\"})",
           "instant": false,
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "TestoV",
+      "title": "Max Execution Time",
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "10s",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -179,17 +320,23 @@
         "current": {
           "selected": true,
           "text": [
-            "runJob"
+            "runJob",
+            "runJob2"
           ],
           "value": [
-            "runJob"
+            "runJob",
+            "runJob2"
           ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "f053876a-4381-43ee-8284-46cae4956fc9"
         },
         "definition": "label_values(method_execution_time_seconds_count,method)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
-        "name": "selected_method",
+        "name": "method",
         "options": [],
         "query": {
           "query": "label_values(method_execution_time_seconds_count,method)",

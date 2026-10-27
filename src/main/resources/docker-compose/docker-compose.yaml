@@ -25,6 +25,8 @@ services:
       - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards
       # Mapowanie katalogu z plikami JSON
       - ./config/grafana/dashboards-json:/var/lib/grafana/dashboards
+      # Mapowanie konfiguracji źródeł danych:
+      - ./config/grafana/datasources:/etc/grafana/provisioning/datasources
     depends_on:
       - prometheus
     restart: always
