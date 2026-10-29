@@ -10,7 +10,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
 
 @Aspect
@@ -30,7 +29,7 @@ public class LogExecutionTimeAspect {
         try {
             return joinPoint.proceed();
         } catch (Throwable ex) {
-            status = "FAIL";
+            status = "ERROR";
             throw ex;
         } finally {
             long durationNanos = timer.stop(Timer.builder("method.execution.time")
@@ -42,8 +41,8 @@ public class LogExecutionTimeAspect {
                     .register(meterRegistry));
 
             long durationInMs = TimeUnit.NANOSECONDS.toMillis(durationNanos);
-            log.debug("method.execution.time : {}#{} executed in {} ms (Status: {})", className, methodName, durationNanos / durationInMs, status);
-            System.out.println(String.format("method.execution.time : %s#%s executed in %s ms (Status: %s)", className, methodName, durationNanos / durationInMs, status));
+            log.debug("method.execution.time : {}#{} executed in {} ms (Status: {})", className, methodName, durationInMs, status);
+            System.out.println(String.format("method.execution.time : %s#%s executed in %s ms (Status: %s)", className, methodName, durationInMs, status));
         }
 
     }
